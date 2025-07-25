@@ -5,11 +5,12 @@ import cors from "cors";
 
 import userRoutes from "./routes/userRoutes";
 import taskRoutes from "./routes/taskRoutes";
+import { corsOptions } from "./config/cors.config";
 
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // ✅ Basic root route (for browser testing)
