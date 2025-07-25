@@ -12,16 +12,19 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// ✅ Basic root route (for browser testing)
+app.get("/", (req, res) => {
+  res.send("API is working ✅");
+});
+
 app.use("/api/users", userRoutes);
 app.use("/api/tasks", taskRoutes);
 
 const PORT = process.env.PORT || 5000;
-const MONGO_URI = process.env.MONGO_URI || "";
-
 mongoose
-  .connect(MONGO_URI)
+  .connect(process.env.MONGO_URI || "")
   .then(() => {
     console.log("MongoDB connected");
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
   })
-  .catch((err) => console.error(err));
+  .catch((err) => console.error("Mongo error:", err));
