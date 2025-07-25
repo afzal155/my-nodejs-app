@@ -42,10 +42,8 @@ export const loginUser = async (req: Request, res: Response) => {
       process.env.JWT_SECRET || "secret",
       { expiresIn: "1d" }
     );
-    const userWithoutPassword = user.toObject();
-    delete userWithoutPassword.password;
 
-    res.json({ token, user: userWithoutPassword });
+    res.json({ token, user });
   } catch (err) {
     res.status(500).json({ message: "Server error" + err });
   }
